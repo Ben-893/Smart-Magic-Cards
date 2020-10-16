@@ -24,7 +24,7 @@ function createCards() {
 
   // For each dataObject, create a new card and append it to the DOM
   cards.forEach((card, i) => {
-    const positionFromLeft = i * 15;
+    const positionFromLeft = i * 31.5;
     const cardElement = document.createElement('div'); //Creates a div
     cardElement.setAttribute('data-value', card.value); // Sets the attribute of the newly created div to a number associated with that card
     cardElement.classList.add('card', `${card.suit}-${card.value}`); // Sets the class of the newly created div equal to the suit-number of the card
