@@ -1,17 +1,17 @@
 const suit = ['hearts', 'spades', 'clubs', 'diamonds'];
 const cardsWrapper = document.querySelector('.cards-wrapper');
 const btnWrapper = document.querySelector(
-  '.btn-wrapper'
+  '.btn-wrapper',
 ); /* eslint-disable-line */
 const selectedCardsWrapper = document.querySelector(
-  '.selected-cards'
+  '.selected-cards',
 ); /* eslint-disable-line */
 
 function createCards() {
   const cards = [];
   // Create an array with objects containing the value and the suit of each card
-  for (let i = 0; i < suit.length; i++) {
-    for (let x = 1; x <= 13; x++) {
+  for (let i = 0; i < suit.length; i += 1) {
+    for (let x = 1; x <= 13; x += 1) {
       const cardObject = {
         value: x,
         suit: suit[i],
@@ -25,7 +25,7 @@ function createCards() {
   // For each dataObject, create a new card and append it to the DOM
   cards.forEach((card, i) => {
     const positionFromLeft = i * 31.5;
-    const cardElement = document.createElement('div'); //Creates a div
+    const cardElement = document.createElement('div'); // Creates a div
     cardElement.setAttribute('data-value', card.value); // Sets the attribute of the newly created div to a number associated with that card
     cardElement.classList.add('card', `${card.suit}-${card.value}`); // Sets the class of the newly created div equal to the suit-number of the card
     cardElement.style.left = `${positionFromLeft}px`; // Manipulates the positioning of a div 'card'
@@ -33,15 +33,38 @@ function createCards() {
   });
 }
 
+function flipCards() {
+
+}
+
+function shuffleCards() {
+
+}
+
 // Function to clear out the initial button and create new buttons to play the game.
-function createButtons() {
-  // Your Code
+function replaceInitialButton() {
+  const initialButton = document.getElementById('start-game');
+  btnWrapper.removeChild(initialButton);
+
+  const shuffleButton = document.createElement('button');
+  shuffleButton.className = 'btn btn-lg btn-secondary';
+  shuffleButton.textContent = 'Shuffle';
+  shuffleButton.style = 'margin:5px';
+  shuffleButton.addEventListener('click', shuffleCards);
+  btnWrapper.appendChild(shuffleButton);
+
+  const flipButton = document.createElement('button');
+  flipButton.className = 'btn btn-lg btn-secondary';
+  flipButton.textContent = 'Show/Hide';
+  flipButton.style = 'margin:5px';
+  flipButton.addEventListener('click', flipCards);
+  btnWrapper.appendChild(flipButton);
 }
 
 // Function to start the game by clearing the wrapper, creating
 // and appending the buttons and all the cards to the DOM
 function startGame() {
-  createButtons();
+  replaceInitialButton();
   createCards();
 }
 
