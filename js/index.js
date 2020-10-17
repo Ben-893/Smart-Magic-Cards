@@ -34,7 +34,8 @@ function createCards() {
 }
 
 function flipCards() {
-
+  const cards = cardsWrapper;
+  cards.classList.toggle('hidden');
 }
 
 function shuffleCards() {
