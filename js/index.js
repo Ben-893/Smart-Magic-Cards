@@ -24,9 +24,11 @@ function createCards() {
   cards.forEach((card, i) => {
     const positionFromLeft = i * 31.5;
     const cardElement = document.createElement('div'); // Creates a div
+
     cardElement.setAttribute('data-value', card.value); // Sets the attribute of the newly created div to a number associated with that card
     cardElement.classList.add('card', `${card.suit}-${card.value}`); // Sets the class of the newly created div equal to the suit-number of the card
     cardElement.style.left = `${positionFromLeft}px`; // Manipulates the positioning of a div 'card'
+    cardElement.addEventListener('click', magicButtonCreator);
     cardsWrapper.append(cardElement); // Appends each new div 'card' to the cardsWrapper div
   });
 }
@@ -52,6 +54,18 @@ function shuffleCards() {
     card.style.left = `${positionFromLeft}px`;
     cardsWrapper.appendChild(card);
   });
+}
+
+function magicButtonCreator() {
+  const cards = [...cardsWrapper.children];
+  const magicButton = document.createElement('button');
+
+  magicButton.className = 'btn btn-lg btn-secondary';
+  magicButton.textContent = 'Magic';
+  magicButton.style = 'margin:5px';
+
+  cards.forEach((card) => card.removeEventListener('click', magicButtonCreator));
+  btnWrapper.appendChild(magicButton);
 }
 
 // Function to clear out the initial button and create new buttons to play the game.
