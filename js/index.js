@@ -20,8 +20,6 @@ function createCards() {
     }
   }
 
-  console.log(cards);
-
   // For each dataObject, create a new card and append it to the DOM
   cards.forEach((card, i) => {
     const positionFromLeft = i * 31.5;
@@ -39,7 +37,21 @@ function flipCards() {
 }
 
 function shuffleCards() {
+  const cards = [...cardsWrapper.children];
+  const shuffledCards = cards
+    .map((a) => ({ sort: Math.random(), value: a }))
+    .sort((a, b) => a.sort - b.sort)
+    .map((a) => a.value);
 
+  while (cardsWrapper.firstChild) {
+    cardsWrapper.removeChild(cardsWrapper.lastChild);
+  }
+
+  shuffledCards.forEach((card, i) => {
+    const positionFromLeft = i * 31.5;
+    card.style.left = `${positionFromLeft}px`;
+    cardsWrapper.appendChild(card);
+  });
 }
 
 // Function to clear out the initial button and create new buttons to play the game.
