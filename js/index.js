@@ -7,6 +7,30 @@ const selectedCardsWrapper = document.querySelector(
   '.selected-cards',
 ); /* eslint-disable-line */
 
+function magicTrick() {
+
+}
+
+function createMagicButton() {
+  const cards = [...cardsWrapper.children];
+  const magicButton = document.createElement('button');
+
+  magicButton.className = 'btn btn-lg btn-secondary';
+  magicButton.textContent = 'Magic';
+  magicButton.style = 'margin:5px';
+  magicButton.addEventListener('click', magicTrick);
+
+  cards.forEach((card) => card.removeEventListener('click', createMagicButton));
+  btnWrapper.appendChild(magicButton);
+}
+
+function selectedCardsHandler(event) {
+  if (selectedCardsWrapper.childNodes.length > 0) return;
+  event.target.style.left = '0px';
+  selectedCardsWrapper.appendChild(event.target);
+  createMagicButton();
+}
+
 function createCards() {
   const cards = [];
   // Create an array with objects containing the value and the suit of each card
@@ -23,13 +47,13 @@ function createCards() {
   // For each dataObject, create a new card and append it to the DOM
   cards.forEach((card, i) => {
     const positionFromLeft = i * 31.5;
-    const cardElement = document.createElement('div'); // Creates a div
+    const cardElement = document.createElement('div');
 
-    cardElement.setAttribute('data-value', card.value); // Sets the attribute of the newly created div to a number associated with that card
-    cardElement.classList.add('card', `${card.suit}-${card.value}`); // Sets the class of the newly created div equal to the suit-number of the card
-    cardElement.style.left = `${positionFromLeft}px`; // Manipulates the positioning of a div 'card'
-    cardElement.addEventListener('click', magicButtonCreator);
-    cardsWrapper.append(cardElement); // Appends each new div 'card' to the cardsWrapper div
+    cardElement.setAttribute('data-value', card.value);
+    cardElement.classList.add('card', `${card.suit}-${card.value}`);
+    cardElement.style.left = `${positionFromLeft}px`;
+    cardElement.addEventListener('click', selectedCardsHandler);
+    cardsWrapper.append(cardElement);
   });
 }
 
@@ -54,18 +78,6 @@ function shuffleCards() {
     card.style.left = `${positionFromLeft}px`;
     cardsWrapper.appendChild(card);
   });
-}
-
-function magicButtonCreator() {
-  const cards = [...cardsWrapper.children];
-  const magicButton = document.createElement('button');
-
-  magicButton.className = 'btn btn-lg btn-secondary';
-  magicButton.textContent = 'Magic';
-  magicButton.style = 'margin:5px';
-
-  cards.forEach((card) => card.removeEventListener('click', magicButtonCreator));
-  btnWrapper.appendChild(magicButton);
 }
 
 // Function to clear out the initial button and create new buttons to play the game.
