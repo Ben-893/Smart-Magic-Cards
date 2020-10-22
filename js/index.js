@@ -8,11 +8,10 @@ const selectedCardsWrapper = document.querySelector(
 ); /* eslint-disable-line */
 
 function magicTrick() {
-  const card = selectedCardsWrapper.firstChild.className;
+  const card = selectedCardsWrapper.firstChild.dataset.value;
   const cards = [...cardsWrapper.children];
-  const number = card.split('-').pop();
   const matchingCards = cards.filter(
-    (matchingCard) => matchingCard.className.split('-').pop() === number,
+    (matchingCard) => matchingCard.dataset.value === card,
   );
 
   matchingCards.forEach((matchedCard, i) => {
