@@ -11,5 +11,6 @@
     "describe": true,
     "it": true,
     "expect": true
-  }
+  },
+  "parser": "babel-eslint"
 }

@@ -8,7 +8,18 @@ const selectedCardsWrapper = document.querySelector(
 ); /* eslint-disable-line */
 
 function magicTrick() {
+  const card = selectedCardsWrapper.firstChild.className;
+  const cards = [...cardsWrapper.children];
+  const number = card.split('-').pop();
+  const matchingCards = cards.filter(
+    (matchingCard) => matchingCard.className.split('-').pop() === number,
+  );
 
+  matchingCards.forEach((matchedCard, i) => {
+    const positionFromLeft = i * 31.5;
+    matchedCard.style.left = `${positionFromLeft + 20}px`;
+    selectedCardsWrapper.appendChild(matchedCard);
+  });
 }
 
 function createMagicButton() {
@@ -25,7 +36,7 @@ function createMagicButton() {
 }
 
 function selectedCardsHandler(event) {
-  if (selectedCardsWrapper.childNodes.length > 0) return;
+  if (selectedCardsWrapper.children.length > 0) return;
   event.target.style.left = '0px';
   selectedCardsWrapper.appendChild(event.target);
   createMagicButton();
@@ -33,7 +44,7 @@ function selectedCardsHandler(event) {
 
 function createCards() {
   const cards = [];
-  // Create an array with objects containing the value and the suit of each card
+
   for (let i = 0; i < suit.length; i += 1) {
     for (let x = 1; x <= 13; x += 1) {
       const cardObject = {
@@ -44,7 +55,6 @@ function createCards() {
     }
   }
 
-  // For each dataObject, create a new card and append it to the DOM
   cards.forEach((card, i) => {
     const positionFromLeft = i * 31.5;
     const cardElement = document.createElement('div');
@@ -80,7 +90,6 @@ function shuffleCards() {
   });
 }
 
-// Function to clear out the initial button and create new buttons to play the game.
 function replaceInitialButton() {
   const initialButton = document.getElementById('start-game');
   btnWrapper.removeChild(initialButton);
@@ -100,8 +109,6 @@ function replaceInitialButton() {
   btnWrapper.appendChild(flipButton);
 }
 
-// Function to start the game by clearing the wrapper, creating
-// and appending the buttons and all the cards to the DOM
 function startGame() {
   replaceInitialButton();
   createCards();
