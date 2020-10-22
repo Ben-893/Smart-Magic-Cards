@@ -1,4 +1,4 @@
-const suit = ['hearts', 'spades', 'clubs', 'diamonds'];
+const suit = ['hearts', 'spades', 'diamonds', 'clubs'];
 const cardsWrapper = document.querySelector('.cards-wrapper');
 const btnWrapper = document.querySelector(
   '.btn-wrapper',
@@ -103,7 +103,7 @@ function replaceInitialButton() {
 
   const flipButton = document.createElement('button');
   flipButton.className = 'btn btn-lg btn-secondary';
-  flipButton.textContent = 'Show/Hide';
+  flipButton.textContent = 'Flip cards';
   flipButton.style = 'margin:5px';
   flipButton.addEventListener('click', flipCards);
   btnWrapper.appendChild(flipButton);
