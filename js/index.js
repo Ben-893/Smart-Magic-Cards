@@ -1,17 +1,17 @@
 const suit = ['hearts', 'spades', 'diamonds', 'clubs'];
 const cardsWrapper = document.querySelector('.cards-wrapper');
 const btnWrapper = document.querySelector(
-  '.btn-wrapper',
+  '.btn-wrapper'
 ); /* eslint-disable-line */
 const selectedCardsWrapper = document.querySelector(
-  '.selected-cards',
+  '.selected-cards'
 ); /* eslint-disable-line */
 
 function magicTrick() {
   const card = selectedCardsWrapper.firstChild.dataset.value;
   const cards = [...cardsWrapper.children];
   const matchingCards = cards.filter(
-    (matchingCard) => matchingCard.dataset.value === card,
+    matchingCard => matchingCard.dataset.value === card
   );
 
   matchingCards.forEach((matchedCard, i) => {
@@ -30,7 +30,7 @@ function createMagicButton() {
   magicButton.style = 'margin:5px';
   magicButton.addEventListener('click', magicTrick);
 
-  cards.forEach((card) => card.removeEventListener('click', createMagicButton));
+  cards.forEach(card => card.removeEventListener('click', createMagicButton));
   btnWrapper.appendChild(magicButton);
 }
 
@@ -74,9 +74,9 @@ function flipCards() {
 function shuffleCards() {
   const cards = [...cardsWrapper.children];
   const shuffledCards = cards
-    .map((a) => ({ sort: Math.random(), value: a }))
+    .map(a => ({ sort: Math.random(), value: a }))
     .sort((a, b) => a.sort - b.sort)
-    .map((a) => a.value);
+    .map(a => a.value);
 
   while (cardsWrapper.firstChild) {
     cardsWrapper.removeChild(cardsWrapper.lastChild);
@@ -108,9 +108,23 @@ function replaceInitialButton() {
   btnWrapper.appendChild(flipButton);
 }
 
+function resetGame() {
+  btnWrapper.innerHTML = '';
+  cardsWrapper.innerHTML = '';
+  selectedCardsWrapper.innerHTML = '';
+
+  const startButton = document.createElement('button');
+  startButton.id = 'start-game';
+  startButton.className = 'btn btn-lg btn-secondary';
+  startButton.textContent = "Let's get started";
+  startButton.addEventListener('click', startGame);
+  btnWrapper.appendChild(startButton);
+}
+
 function startGame() {
   replaceInitialButton();
   createCards();
 }
 
 document.getElementById('start-game').addEventListener('click', startGame);
+document.getElementById('reset-game').addEventListener('click', resetGame);
